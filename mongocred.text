@@ -1,0 +1,7 @@
+username = myaccounts
+password = k32ETLsz3Wl6tFWJ
+
+mongodb+srv://myaccounts:k32ETLsz3Wl6tFWJ@mern-project-cluster.do6ln4b.mongodb.net/
+
+
+mongodb+srv://myaccounts:k32ETLsz3Wl6tFWJ@mern-project-cluster.do6ln4b.mongodb.net/?retryWrites=true&w=majority&appName=Mern-Project-Cluster
