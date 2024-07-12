@@ -1,7 +1,14 @@
-import React, { useState } from 'react'
-//import { registerForm } from '../types/registerType'
+import React, { useEffect, useState } from 'react'
+import { IRegisterForm } from '../types/registerType'
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { register, reset } from '../features/auth/authSlice';
+import Spinner from '../components/Spinner';
+import { AppDispatch, RootState } from '../store';
+import { IUserData } from '../types/registerType';
 const Register: React.FC = () => {
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<IRegisterForm>({
         name: '',
         email: '',
         password: '',
@@ -10,16 +17,44 @@ const Register: React.FC = () => {
 
     const { name, email, password, password2 } = formData;
 
-    const handleChange = (e) => {
+    const navigate = useNavigate();
+    const dispatch: AppDispatch = useDispatch();
+    const { user, isLoading, isError, isSuccess, message } = useSelector((state: RootState) => state.auth);
+
+    useEffect(() => {
+        if (isError) {
+            toast.error(message);
+        }
+        if (isSuccess || user) {
+            navigate('/')
+        }
+
+        dispatch(reset());
+    }
+
+        , [user, isError, isSuccess, message, navigate, dispatch])
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData((prev) => ({
             ...prev,
             [e.target.name]: e.target.value
         }))
     }
 
-    const handleSubmit = e => {
+    const handleSubmit = (e: React.FormEvent<EventTarget>) => {
         e.preventDefault();
-        console.log(formData);
+        if (password !== password2) {
+            toast.error('Password do not match');
+        }
+        else {
+            const userData: IUserData = { name, email, password };
+            dispatch(register(userData));
+        }
+        //console.log(formData);
+    }
+
+    if (isLoading) {
+        return <Spinner />
     }
     return (
         <>

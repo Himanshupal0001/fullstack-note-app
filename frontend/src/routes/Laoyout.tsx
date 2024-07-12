@@ -1,9 +1,9 @@
 import { Outlet } from 'react-router-dom'
-
+import Header from '../components/Header'
 const Laoyout = () => {
     return (
         <>
-            <div>Header</div>
+            <Header />
             <Outlet />
         </>
     )
