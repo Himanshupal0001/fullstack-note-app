@@ -22,7 +22,6 @@ const Login: React.FC = () => {
     const navigate = useNavigate();
     const dispatch: AppDispatch = useDispatch();
     const { user, isLoading, isError, isSuccess, message } = useSelector((state: RootState) => state.auth);
-
     useEffect(() => {
         if (isError) {
             toast.error(message);
@@ -34,7 +33,8 @@ const Login: React.FC = () => {
         dispatch(reset());
     }
 
-        , [user, isError, isSuccess, message, navigate, dispatch])
+        , [user, isError, isSuccess, message, navigate, dispatch]);
+
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData((prev) => ({
@@ -45,7 +45,6 @@ const Login: React.FC = () => {
 
     const handleSubmit = (e: React.FormEvent<EventTarget>) => {
         e.preventDefault();
-        console.log(formData);
         const userData: ILoginUser = { email, password };
         dispatch(login(userData));
     }

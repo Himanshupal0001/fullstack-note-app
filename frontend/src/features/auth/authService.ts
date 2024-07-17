@@ -19,18 +19,11 @@ const register = async (userData: IUserData) => {
 }
 
 const login = async (userData: IUserData) => {
-    try {
-        const response = await axios.post(API_URL + 'login', userData);
-        console.log(response.data, typeof response.data);
-        if (response.data) {
-            localStorage.setItem('user', JSON.stringify(response.data));
-        }
-
-        return response.data;
+    const response = await axios.post(API_URL + 'login', userData);
+    if (response.data) {
+        localStorage.setItem('user', JSON.stringify(response.data));
     }
-    catch (err) {
-        console.log(err);
-    }
+    return response.data;
 }
 
 const logout = (): void => {

@@ -9,9 +9,9 @@ function Header(): JSX.Element {
     const { user } = useSelector((state: RootState) => state.auth)
 
     const onLogout = () => {
-        dispatch(logout())
-        dispatch(reset())
-        navigate('/login')
+        dispatch(logout());
+        dispatch(reset());
+        navigate('/login');
     }
 
     return (
